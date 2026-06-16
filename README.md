@@ -1,44 +1,100 @@
-# ☕ Java Core Engineering & OOP Design
-A technical repository dedicated to mastering Java Core principles, Object-Oriented Design (OOP), and Enterprise-level coding standards.
+# 🚀 21-Day LeetCode Challenge: 3 Problems Daily
+
+A dedicated tracker for solving **3 LeetCode problems every day for 21 consecutive days**. This challenge focuses on strengthening problem-solving skills, algorithmic thinking, and coding proficiency.
 
 ---
 
-### 🕵️ Repository Objective
-This repository serves as a professional journal and reference library for my deep dive into Java. It focuses on building scalable, maintainable, and efficient code by implementing core engineering concepts.
+## 📊 Challenge Overview
 
-- 🛠️ **Current Focus:** Mastery of Abstraction, Interfaces, and Multiple Inheritance logic.
-- 🎯 **Goal:** Implementing clean code and SOLID principles in Java.
-- 🧪 **Practice:** Real-world simulations (e.g., Vehicle system dynamics).
-
----
-
-### 📂 Technical Architecture (Roadmap)
-
-| Module | Concepts Covered | Status |
-| :--- | :--- | :--- |
-| **01. OOP Principles** | Abstraction, Encapsulation, Polymorphism, Inheritance | ✅ Active |
-| **02. Interface Logic** | Multiple Interfaces, Abstract Classes, Final Variables | ✅ Active |
-| **03. Collections** | List, Set, Map, Stream API | ⏳ Upcoming |
-| **04. Multi-threading** | Threads, Runnable, Synchronization | ⏳ Upcoming |
-| **05. JVM Internals** | Memory Management, Garbage Collection | ⏳ Upcoming |
+| Metric | Details |
+| :--- | :--- |
+| **Duration** | 21 Days (Consecutive) |
+| **Daily Target** | 3 Problems |
+| **Total Problems** | 63 Problems |
+| **Focus Areas** | Arrays, Strings, Trees, Graphs, DP, Recursion |
+| **Difficulty Levels** | Easy → Medium → Hard |
 
 ---
 
-### 💻 Implementation Spotlight: Multiple Inheritance
-In my latest module, I explored how Java handles **Multiple Inheritance** using Interfaces while preventing the "Diamond Problem" through Abstraction.
+## 🎯 Challenge Rules
 
-**Key Snippet: Cycle System**
-- **Interface:** `Brake`, `Handle` (Defining strictly what the system *does*).
-- **Abstract Class:** `Mirror`, `Horn` (Defining what the system *is*).
-- **Implementation:** `Cycle` (Merging behaviors to build a complete system).
+- ✅ Solve **exactly 3 LeetCode problems** each day
+- ✅ Problems must be from **different difficulty levels** (mix of Easy/Medium/Hard)
+- ✅ Document the problem number, title, and approach
+- ✅ Maintain a **daily streak** (no gaps allowed)
+- ✅ Focus on code optimization and time/space complexity
+- ✅ Review edge cases and alternative solutions
 
-```java
-// Logic: Interface methods must be public and lack a body.
-interface Brake {
-    int normal_acc = 50; // Final property
-    void applyBrake(int your_acc);
-}
+---
 
-class Cycle extends Mirror implements Brake, Handle {
-    // Implemented logic for Cycle dynamics
-}
+## 📅 Daily Progress Tracker
+
+### Week 1: Foundation Building
+
+| Day | Problem 1 | Problem 2 | Problem 3 | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Day 1** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 2** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 3** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 4** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 5** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 6** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 7** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+
+### Week 2: Intermediate Challenge
+
+| Day | Problem 1 | Problem 2 | Problem 3 | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Day 8** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 9** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 10** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 11** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 12** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 13** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 14** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+
+### Week 3: Advanced Mastery
+
+| Day | Problem 1 | Problem 2 | Problem 3 | Status |
+| :--- | :--- | :--- | :--- | :--- |
+| **Day 15** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 16** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 17** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 18** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 19** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 20** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+| **Day 21** | [ ] Problem | [ ] Problem | [ ] Problem | ⏳ Pending |
+
+---
+
+## 🏆 Problem Categories & Focus Areas
+
+### Arrays & Strings (7 Days)
+- Two Pointers Technique
+- Sliding Window
+- String Manipulation
+- Array Transformations
+
+### Trees & Graphs (7 Days)
+- Binary Tree Traversal (In-order, Pre-order, Post-order)
+- Graph DFS/BFS
+- Topological Sort
+- Shortest Path Algorithms
+
+### Dynamic Programming (4 Days)
+- Fibonacci & Variants
+- Knapsack Problem
+- Longest Common Subsequence
+- State Transitions
+
+### Recursion & Backtracking (3 Days)
+- N-Queens Problem
+- Permutations & Combinations
+- Word Search
+- Subset Generation
+
+---
+
+## 📝 Problem Solving Template
+
+For each problem, document the following:
