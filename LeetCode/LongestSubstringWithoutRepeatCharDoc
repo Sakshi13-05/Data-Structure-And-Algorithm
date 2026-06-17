@@ -1,0 +1,806 @@
+# 🚀 Sakshi's Interview Journal
+
+# Day 3 – LeetCode 3: Longest Substring Without Repeating Characters
+
+---
+
+# Problem
+
+Given a string `s`, return the length of the longest substring without repeating characters.
+
+Example:
+
+```
+Input:  "abcabcbb"
+Output: 3
+
+Explanation:
+The longest substring is "abc".
+```
+
+---
+
+# Step 1 – Understand the Problem
+
+### What is a substring?
+
+A substring is a **continuous** sequence of characters.
+
+Example:
+
+```
+String = "abcdef"
+
+Substring:
+abc
+bcd
+def
+```
+
+Not valid:
+
+```
+ace
+adf
+```
+
+These are subsequences, not substrings.
+
+---
+
+# Hidden Constraint
+
+The substring must satisfy two conditions:
+
+1. It must be **continuous**.
+2. Every character inside it must be **unique**.
+
+---
+
+# Pattern Recognition
+
+When I saw:
+
+* Longest
+* Substring
+* Continuous
+* Variable size
+
+I immediately recognized the pattern.
+
+## Pattern
+
+**Variable Size Sliding Window**
+
+Recognition keywords:
+
+* Longest
+* Shortest
+* Maximum
+* Minimum
+* Continuous
+* Subarray
+* Substring
+
+Whenever these appear,
+
+think:
+
+> "Can I maintain a window instead of checking every substring?"
+
+---
+
+# Brute Force
+
+Generate every possible substring.
+
+For every substring,
+
+check whether all characters are unique.
+
+Time Complexity:
+
+```
+O(n³)
+```
+
+Too slow.
+
+---
+
+# Optimal Idea
+
+Maintain a window that always contains **unique characters**.
+
+If adding a new character makes the window invalid,
+
+shrink the window until it becomes valid again.
+
+---
+
+# Data Structure
+
+HashMap
+
+```
+Character  → Frequency
+```
+
+Example
+
+Current Window
+
+```
+abca
+```
+
+HashMap
+
+```
+a → 2
+b → 1
+c → 1
+```
+
+This immediately tells us
+
+the window is invalid.
+
+---
+
+# My Initial Algorithm
+
+I initially thought:
+
+* Place pointers `i` and `j` at the beginning.
+* If a duplicate appears,
+  move `i` once.
+
+### Problem
+
+Example
+
+```
+abba
+```
+
+After removing one character,
+
+the window becomes
+
+```
+bb
+```
+
+The duplicate still exists.
+
+Therefore,
+
+moving `i` only once is **not enough**.
+
+---
+
+# Lesson Learned
+
+When the window becomes invalid,
+
+I must continue shrinking it
+
+until the duplicate disappears.
+
+That is why a **while loop** is required.
+
+---
+
+# Final Optimal Algorithm
+
+## Step 1
+
+Initialize
+
+```
+i = 0
+j = 0
+
+HashMap<Character, Integer>
+
+maxLength = 0
+```
+
+---
+
+## Step 2
+
+Expand the window.
+
+Read
+
+```
+s.charAt(j)
+```
+
+Increase its frequency.
+
+---
+
+## Step 3
+
+Check the window.
+
+If every character has frequency ≤ 1,
+
+the window is valid.
+
+---
+
+## Step 4
+
+If the window becomes invalid,
+
+run
+
+```
+while(window is invalid)
+```
+
+Inside the loop
+
+* Read
+
+```
+s.charAt(i)
+```
+
+* Decrease its frequency.
+
+* Move
+
+```
+i++
+```
+
+Repeat until the window becomes valid again.
+
+---
+
+## Step 5
+
+Now the window is valid.
+
+Calculate
+
+```
+maxLength = max(maxLength,
+                j - i + 1)
+```
+
+---
+
+## Step 6
+
+Move
+
+```
+j++
+```
+
+Continue.
+
+---
+
+# Window Invariant
+
+The most important concept.
+
+At every iteration,
+
+the sliding window must satisfy:
+
+```
+Every character
+appears at most once.
+```
+
+Everything we do
+
+(expanding,
+
+shrinking,
+
+updating the HashMap)
+
+is done only to maintain this invariant.
+
+---
+
+# Dry Run
+
+Example
+
+```
+s = "abba"
+```
+
+### Step 1
+
+Window
+
+```
+a
+```
+
+Valid
+
+Maximum Length
+
+```
+1
+```
+
+---
+
+### Step 2
+
+Window
+
+```
+ab
+```
+
+Valid
+
+Maximum Length
+
+```
+2
+```
+
+---
+
+### Step 3
+
+Add
+
+```
+b
+```
+
+Window
+
+```
+abb
+```
+
+Frequency
+
+```
+a → 1
+
+b → 2
+```
+
+Invalid.
+
+---
+
+### Shrink
+
+Remove
+
+```
+a
+```
+
+Window
+
+```
+bb
+```
+
+Frequency
+
+```
+a → 0
+
+b → 2
+```
+
+Still Invalid.
+
+---
+
+Shrink Again
+
+Remove
+
+```
+b
+```
+
+Window
+
+```
+b
+```
+
+Frequency
+
+```
+b → 1
+```
+
+Valid.
+
+Now update the answer.
+
+---
+
+# Why While Loop?
+
+Because removing one character
+
+does not always remove the duplicate.
+
+Example
+
+```
+abba
+```
+
+One removal
+
+```
+bb
+```
+
+Still invalid.
+
+Need another removal.
+
+Therefore
+
+```
+while(...)
+```
+
+is necessary.
+
+---
+
+# Why Time Complexity is O(n)?
+
+At first glance,
+
+there is a nested loop.
+
+It looks like
+
+```
+O(n²)
+```
+
+Actually,
+
+it is
+
+```
+O(n)
+```
+
+Reason:
+
+The right pointer (`j`) moves from left to right only once.
+
+The left pointer (`i`) also moves from left to right only once.
+
+Neither pointer ever moves backward.
+
+Therefore,
+
+each character
+
+* enters the window once
+* leaves the window once
+
+Total operations
+
+```
+2n
+```
+
+Ignoring constants,
+
+Time Complexity
+
+```
+O(n)
+```
+
+---
+
+# Space Complexity
+
+The HashMap stores only the characters currently needed.
+
+Worst case
+
+```
+O(min(n, alphabet size))
+```
+
+For English letters,
+
+the map never grows beyond the alphabet.
+
+---
+
+# Communication Formula
+
+Whenever explaining this problem:
+
+## Step 1
+
+State the pattern.
+
+> This is a variable-size sliding window problem because we need the longest continuous substring satisfying a condition.
+
+---
+
+## Step 2
+
+State the invariant.
+
+> I maintain a window that always contains unique characters.
+
+---
+
+## Step 3
+
+Explain expansion.
+
+> I expand the window by moving the right pointer and updating the character frequency.
+
+---
+
+## Step 4
+
+Explain shrinking.
+
+> If adding a character makes the window invalid, I repeatedly shrink the window from the left until all characters become unique again.
+
+---
+
+## Step 5
+
+Update the answer.
+
+> Once the window is valid, I update the maximum length.
+
+---
+
+## Step 6
+
+Complexity.
+
+Time Complexity
+
+```
+O(n)
+```
+
+Space Complexity
+
+```
+O(min(n, alphabet size))
+```
+
+---
+
+# Mistakes I Made
+
+❌ Initially thought moving `i` once would remove duplicates.
+
+Correct:
+
+Keep shrinking until the window becomes valid.
+
+---
+
+❌ Thought length should be calculated immediately after detecting a duplicate.
+
+Correct:
+
+Update the answer only after restoring the window.
+
+---
+
+❌ Mixed HashMap frequency logic with HashSet logic.
+
+Correct:
+
+Choose one approach and explain it consistently.
+
+---
+
+# Interview Follow-up Questions
+
+### Q1
+
+Why Sliding Window?
+
+Because the substring is continuous and we want an optimal solution.
+
+---
+
+### Q2
+
+Why HashMap?
+
+To maintain the frequency of characters inside the current window.
+
+---
+
+### Q3
+
+Why While Loop?
+
+Because a single removal may not eliminate all duplicates.
+
+---
+
+### Q4
+
+Why O(n) instead of O(n²)?
+
+Each pointer only moves forward.
+
+Each character enters and leaves the window at most once.
+
+---
+
+### Q5
+
+What invariant do you maintain?
+
+The current window always contains unique characters.
+
+---
+
+# Interview Vocabulary
+
+Instead of:
+
+> "I move i."
+
+Say:
+
+> "I shrink the window from the left."
+
+---
+
+Instead of:
+
+> "I add a character."
+
+Say:
+
+> "I expand the window by including the current character."
+
+---
+
+Instead of:
+
+> "I remove a character."
+
+Say:
+
+> "I decrement the frequency of the leftmost character and move the left pointer."
+
+---
+
+# Interview Evaluation
+
+Problem Understanding
+
+⭐⭐⭐⭐⭐ (10/10)
+
+Pattern Recognition
+
+⭐⭐⭐⭐⭐ (10/10)
+
+Algorithm Design
+
+⭐⭐⭐⭐⭐ (9.5/10)
+
+Complexity Analysis
+
+⭐⭐⭐⭐⭐ (10/10)
+
+Communication
+
+⭐⭐⭐⭐⭐ (9.5/10)
+
+Overall Score
+
+**9.5/10**
+
+---
+
+# Pattern Notebook
+
+## Pattern #3 – Variable Size Sliding Window
+
+### Recognition Clues
+
+* Longest
+* Shortest
+* Maximum
+* Minimum
+* Continuous
+* Substring
+* Subarray
+
+### Core Invariant
+
+Maintain a window that always satisfies the problem's condition.
+
+If the condition breaks,
+
+shrink the window until it becomes valid again.
+
+---
+
+# Today's Takeaways
+
+* Pattern recognition comes before implementation.
+* Always identify the invariant maintained by the algorithm.
+* Expand the window first, then restore validity if needed.
+* Use a `while` loop when one adjustment may not be sufficient.
+* Update the answer only after the window is valid.
+* Explain the reasoning before discussing the code.
+
+---
+
+# My Progress (3-Day Journey)
+
+### Day 1 – Two Sum
+
+Pattern:
+HashMap
+
+Learned:
+Store values for O(1) lookup and explain why the map is needed.
+
+---
+
+### Day 2 – Best Time to Buy and Sell Stock
+
+Pattern:
+Greedy / Running Minimum
+
+Learned:
+Maintain the minimum price seen so far and respect the buy-before-sell timeline.
+
+---
+
+### Day 3 – Longest Substring Without Repeating Characters
+
+Pattern:
+Variable Size Sliding Window
+
+Learned:
+Maintain a valid window using a HashMap and shrink it whenever the window becomes invalid.
+
+---
+
+# My Interview Promise
+
+I will first identify the pattern.
+
+Then I will identify the invariant.
+
+Then I will explain the algorithm.
+
+Finally, I will discuss the time and space complexity.
+
+I will focus on understanding the reasoning behind the solution instead of memorizing code.
