@@ -1,0 +1,731 @@
+# 🚀 Sakshi's DSA Interview Notes
+
+# LeetCode 49 – Group Anagrams
+
+---
+
+# Problem Statement
+
+Given an array of strings, group all strings that are anagrams of each other.
+
+### Example
+
+Input
+
+```text
+["eat","tea","tan","ate","nat","bat"]
+```
+
+Output
+
+```text
+[
+ ["eat","tea","ate"],
+ ["tan","nat"],
+ ["bat"]
+]
+```
+
+---
+
+# Step 1 – Understand the Problem
+
+## What is an Anagram?
+
+Two strings are anagrams if:
+
+* They contain exactly the same characters.
+* Every character appears the same number of times.
+* The order of characters does not matter.
+
+### Examples
+
+```text
+eat  → tea
+listen → silent
+rat → tar
+```
+
+Not Anagrams
+
+```text
+cat → car
+
+aab → abb
+```
+
+---
+
+# Step 2 – Pattern Recognition
+
+### Recognition Keywords
+
+* Group
+* Categorize
+* Similar Property
+* Same Representation
+
+Whenever these words appear,
+
+think:
+
+> **HashMap**
+
+---
+
+# Hidden Observation
+
+If two words are anagrams,
+
+sorting both words gives the same result.
+
+Example
+
+```text
+eat
+
+↓
+
+aet
+```
+
+```text
+tea
+
+↓
+
+aet
+```
+
+```text
+ate
+
+↓
+
+aet
+```
+
+All become
+
+```text
+aet
+```
+
+This sorted string is called the **canonical representation (signature)**.
+
+---
+
+# Pattern
+
+## HashMap
+
+### Key
+
+Sorted String
+
+Example
+
+```text
+eat
+
+↓
+
+aet
+```
+
+Key
+
+```text
+aet
+```
+
+---
+
+### Value
+
+List of original words
+
+Example
+
+```text
+aet
+
+↓
+
+[eat, tea, ate]
+```
+
+---
+
+# Data Structure
+
+```java
+HashMap<String, List<String>>
+```
+
+Meaning
+
+```
+Sorted String
+
+↓
+
+List of Original Words
+```
+
+Example
+
+```
+aet
+
+↓
+
+[eat, tea, ate]
+```
+
+```
+ant
+
+↓
+
+[tan, nat]
+```
+
+```
+abt
+
+↓
+
+[bat]
+```
+
+---
+
+# Algorithm
+
+### Step 1
+
+Create
+
+```java
+HashMap<String, List<String>>
+```
+
+---
+
+### Step 2
+
+Traverse every string in the array.
+
+---
+
+### Step 3
+
+Convert the current string into a character array.
+
+```java
+char[] ch = word.toCharArray();
+```
+
+---
+
+### Step 4
+
+Sort the character array.
+
+```java
+Arrays.sort(ch);
+```
+
+---
+
+### Step 5
+
+Convert it back into a String.
+
+```java
+String key = new String(ch);
+```
+
+Now
+
+```text
+eat
+
+↓
+
+aet
+```
+
+---
+
+### Step 6
+
+Check whether the key exists.
+
+If
+
+```java
+!map.containsKey(key)
+```
+
+Create a new list.
+
+```java
+map.put(key,new ArrayList<>());
+```
+
+---
+
+### Step 7
+
+Insert the original word.
+
+```java
+map.get(key).add(word);
+```
+
+---
+
+### Step 8
+
+After processing every word,
+
+return
+
+```java
+new ArrayList<>(map.values());
+```
+
+---
+
+# Dry Run
+
+Input
+
+```text
+eat
+tea
+tan
+ate
+nat
+bat
+```
+
+---
+
+## Iteration 1
+
+Word
+
+```text
+eat
+```
+
+Sorted
+
+```text
+aet
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat]
+```
+
+---
+
+## Iteration 2
+
+Word
+
+```text
+tea
+```
+
+Sorted
+
+```text
+aet
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat, tea]
+```
+
+---
+
+## Iteration 3
+
+Word
+
+```text
+tan
+```
+
+Sorted
+
+```text
+ant
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat, tea]
+
+ant
+
+↓
+
+[tan]
+```
+
+---
+
+## Iteration 4
+
+Word
+
+```text
+ate
+```
+
+Sorted
+
+```text
+aet
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat, tea, ate]
+
+ant
+
+↓
+
+[tan]
+```
+
+---
+
+## Iteration 5
+
+Word
+
+```text
+nat
+```
+
+Sorted
+
+```text
+ant
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat, tea, ate]
+
+ant
+
+↓
+
+[tan, nat]
+```
+
+---
+
+## Iteration 6
+
+Word
+
+```text
+bat
+```
+
+Sorted
+
+```text
+abt
+```
+
+Map
+
+```
+aet
+
+↓
+
+[eat, tea, ate]
+
+ant
+
+↓
+
+[tan, nat]
+
+abt
+
+↓
+
+[bat]
+```
+
+---
+
+# Final Output
+
+```text
+[
+[eat,tea,ate],
+
+[tan,nat],
+
+[bat]
+]
+```
+
+---
+
+# Time Complexity
+
+Suppose
+
+```
+n = Number of strings
+
+k = Average length of each string
+```
+
+For every string
+
+Convert to character array
+
+```
+O(k)
+```
+
+Sort
+
+```
+O(k log k)
+```
+
+Convert back to String
+
+```
+O(k)
+```
+
+Insert into HashMap
+
+```
+O(1)
+```
+
+Overall
+
+```
+O(n × k log k)
+```
+
+---
+
+# Space Complexity
+
+HashMap stores all strings.
+
+```
+O(n × k)
+```
+
+---
+
+# Java Syntax Used
+
+Convert String → Character Array
+
+```java
+char[] ch = word.toCharArray();
+```
+
+Sort Character Array
+
+```java
+Arrays.sort(ch);
+```
+
+Convert Character Array → String
+
+```java
+String key = new String(ch);
+```
+
+Create HashMap
+
+```java
+HashMap<String,List<String>> map = new HashMap<>();
+```
+
+Check Key
+
+```java
+map.containsKey(key)
+```
+
+Create New List
+
+```java
+map.put(key,new ArrayList<>());
+```
+
+Add Element
+
+```java
+map.get(key).add(word);
+```
+
+Return Answer
+
+```java
+new ArrayList<>(map.values());
+```
+
+---
+
+# Interview Communication
+
+## Step 1
+
+Start with the pattern.
+
+> "This problem is a HashMap grouping problem."
+
+---
+
+## Step 2
+
+Explain the observation.
+
+> "All anagrams produce the same sorted string."
+
+---
+
+## Step 3
+
+Explain the HashMap.
+
+> "The sorted string acts as the key, while the value is a list containing all original words sharing that key."
+
+---
+
+## Step 4
+
+Explain the algorithm.
+
+> "I iterate through each word, sort it, generate its canonical representation, and use that as the HashMap key. If the key already exists, I append the word to the corresponding list; otherwise, I create a new list. Finally, I return all the grouped lists."
+
+---
+
+## Step 5
+
+Complexity
+
+Time
+
+```
+O(n × k log k)
+```
+
+Space
+
+```
+O(n × k)
+```
+
+---
+
+# Common Follow-up Questions
+
+## Q1. Why use the sorted string as the key?
+
+Because every anagram has the same sorted representation.
+
+---
+
+## Q2. Why not use the original string as the key?
+
+The original strings are different (`"eat"` and `"tea"`), so they would not be grouped together.
+
+---
+
+## Q3. Can this be optimized further?
+
+Yes.
+
+Instead of sorting, create a frequency count of the 26 lowercase letters and use that frequency representation as the key.
+
+This avoids sorting and can improve performance for longer strings.
+
+---
+
+# Mistakes to Avoid
+
+❌ Using the original string as the HashMap key.
+
+✅ Use the sorted string (canonical representation).
+
+---
+
+❌ Forgetting to create a new list for a new key.
+
+✅ Check `containsKey()` before adding.
+
+---
+
+❌ Saying the time complexity is `O(n)`.
+
+✅ Sorting each string costs `O(k log k)`, so the total is `O(n × k log k)`.
+
+---
+
+# Interview Summary (30 Seconds)
+
+> "I recognize this as a HashMap grouping problem. The key observation is that all anagrams have the same sorted representation. I iterate through each string, sort its characters to generate a canonical key, and use that key in a `HashMap<String, List<String>>`. If the key already exists, I append the current word to its list; otherwise, I create a new list. Finally, I return all the lists stored in the map. The overall time complexity is `O(n × k log k)` because each string of length `k` is sorted, and the space complexity is `O(n × k)`."
+
+---
+
+# Today's Learning
+
+* Recognize grouping problems and think of a HashMap.
+* Identify the common property shared by all items in a group.
+* Use that property as the HashMap key.
+* Store all related elements in a list as the value.
+* Explain the reasoning before writing the code.
