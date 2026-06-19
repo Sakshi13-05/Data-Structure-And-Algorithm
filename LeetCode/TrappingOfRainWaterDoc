@@ -1,0 +1,288 @@
+Trapping Rain Water (LeetCode 42) – Interview Documentation
+
+(Prepared for Sakshi's Interview Notes)
+
+📌 Problem Statement
+
+Given an array height[] where each element represents the height of a building, calculate the total amount of rainwater that can be trapped after raining.
+
+Example
+Input:
+
+height = [0,1,0,2,1,2,3,1,2,1,2,1]
+
+Output:
+
+3
+Step 1 – Problem Understanding
+
+Each element of the array represents the height of a building.
+
+Water can only be trapped if there exists:
+
+A taller building on the left.
+A taller building on the right.
+
+The water level above the current building is determined by the shorter of the two tallest boundaries.
+
+Step 2 – Brute Force Approach
+
+For every building:
+
+Find the tallest building on the left.
+Find the tallest building on the right.
+Water trapped:
+Water = min(LeftMax, RightMax) - CurrentHeight
+
+If the value is positive, add it to the answer.
+
+Brute Force Algorithm
+total = 0
+
+For every building i
+
+    Find LeftMax
+
+    Find RightMax
+
+    water = min(LeftMax, RightMax) - height[i]
+
+    if water > 0
+
+        total += water
+
+Return total
+Brute Force Complexity
+Time Complexity
+O(n²)
+
+Reason:
+
+For every element, we scan both the left and right sides.
+
+Space Complexity
+O(1)
+
+Only constant variables are used.
+
+Observation
+
+While solving the brute-force solution, I observed that:
+
+The right maximum is being recomputed for every index.
+
+Example:
+
+i = 0
+
+Right Maximum → computed
+
+i = 1
+
+Right Maximum → computed again
+
+i = 2
+
+Right Maximum → computed again
+
+This is repeated work.
+
+Instead of recalculating it every time, we can precompute it once.
+
+Optimization
+
+Precompute the Right Maximum.
+
+Since we traverse from right to left,
+
+the right maximum at every position can be calculated using the previously computed value.
+
+Formula:
+
+RightMax[i] = max(height[i], RightMax[i+1])
+
+Similarly,
+
+Left Maximum can be maintained using a single variable.
+
+There is no need to create another array.
+
+Optimal Algorithm
+Step 1
+
+Create
+
+rightMax[]
+
+Traverse from right to left.
+
+rightMax[last] = height[last]
+
+rightMax[i] = max(height[i], rightMax[i+1])
+Step 2
+
+Traverse from left to right.
+
+Maintain
+
+leftMax
+
+Update
+
+leftMax = max(leftMax,height[i])
+Step 3
+
+Calculate
+
+water = min(leftMax,rightMax[i]) - height[i]
+
+If
+
+water > 0
+
+Add it to total.
+
+Dry Run
+height
+
+0 1 0 2 1 2 3 1 2 1 2 1
+
+RightMax
+
+3 3 3 3 3 3 3 2 2 2 2 1
+
+Now maintain
+
+LeftMax
+
+During traversal
+
+Index 0
+
+LeftMax = 0
+
+Water = 0
+Index 2
+
+LeftMax = 1
+
+RightMax = 3
+
+Current = 0
+
+Water = min(1,3)-0
+
+=1
+
+Add
+
+1
+
+Similarly compute for every index.
+
+Final Answer
+
+3
+Time Complexity
+RightMax Construction
+O(n)
+Main Traversal
+O(n)
+
+Total
+
+O(n)
+Space Complexity
+
+Only
+
+RightMax[]
+
+is stored.
+
+Therefore
+
+O(n)
+Interview Explanation (Ready to Speak)
+
+"The brute-force solution scans both the left and right side for every building, resulting in O(n²) time complexity. While analyzing it, I noticed that the right maximum is recomputed repeatedly for each index. To avoid this repeated computation, I precompute the right maximum in one traversal from right to left. During the second traversal, I maintain the left maximum using a single variable because it depends only on the elements already visited. At every index, the trapped water is calculated using min(leftMax, rightMax[i]) - height[i]. If the value is positive, I add it to the total. This reduces the overall time complexity to O(n) while using O(n) extra space."
+
+Interview Follow-up Questions
+Q1. Why do we take the minimum?
+
+Because the water level is limited by the shorter boundary.
+
+If one side is lower, water will overflow from that side.
+
+Q2. Why is LeftMax maintained in a variable?
+
+Since we are moving from left to right,
+
+we already know the tallest building seen so far.
+
+So one variable is sufficient.
+
+Q3. Why is RightMax precomputed?
+
+Right maximum depends on future elements.
+
+Without precomputation,
+
+we would scan the right side repeatedly,
+
+leading to O(n²).
+
+Q4. Can this be optimized further?
+
+Yes.
+
+Using the Two Pointer technique.
+
+Time Complexity
+
+O(n)
+
+Space Complexity
+
+O(1)
+Pattern Recognition
+Observation	Pattern
+Need information from left	Prefix
+Need information from right	Suffix
+Avoid repeated computation	Precomputation
+Running maximum	Prefix Maximum
+Overall Pattern	Prefix/Suffix + Running Maximum
+Mistakes I Made While Solving
+Mistake 1
+
+Initially computed RightMax using a nested loop.
+
+Result:
+
+O(n²)
+Mistake 2
+
+Initially tried using an ArrayList instead of an array.
+
+Since the size is fixed, an int[] is a better choice.
+
+Mistake 3
+
+Initially thought of storing multiple maximum values.
+
+Later realized that only the running maximum is required.
+
+Learning from This Problem
+Recognize repeated computations in the brute-force approach.
+Use precomputation to eliminate redundant work.
+If information depends only on previously processed elements, maintain it using a running variable.
+Prefix/Suffix patterns often lead to O(n) optimizations.
+Always derive the optimal solution from the brute-force solution instead of memorizing it.
+Revision Summary (1 Minute)
+Pattern: Prefix/Suffix (Running Maximum)
+Brute Force: Scan left and right for every index → O(n²), O(1)
+Observation: Right maximum is recomputed repeatedly.
+Optimization: Precompute RightMax[] in one pass and maintain LeftMax as a running maximum.
+Formula: water = min(leftMax, rightMax[i]) - height[i]
+Optimal Complexity: O(n) time, O(n) space.
+Further Optimization: Two pointers → O(n) time, O(1) space.
