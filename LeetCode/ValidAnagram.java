@@ -6,22 +6,23 @@ public class ValidAnagram {
         if (s.length() != t.length()) {
             return false;
         }
-        HashMap<Character, Integer> map = new HashMap<>();
+        int[] freq = new int[26];
+        for (int i = 0; i < 26; i++) {
+            freq[i] = 0;
+        }
         for (int i = 0; i < s.length(); i++) {
-            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+            freq[i]++;
         }
-        for (int i = 0; i < t.length(); i++) {
-            if (!map.containsKey(t.charAt(i)))
-                return false;
-            map.put(t.charAt(i), map.get(t.charAt(i)) - 1);
-            if (map.get(t.charAt(i)) == 0) {
-                map.remove(t.charAt(i));
-            }
-        }
-        if (map.isEmpty())
-            return true;
+        for (int i = 0; i < s.length(); i++) {
+            freq[i]--;
 
-        return false;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] != 0)
+                return false;
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
