@@ -1,0 +1,5 @@
+﻿commit c890c52ee25517a80b00bf4ca216e9bdc8677b72
+Author: Sakshi13-05 <sakshichavan61116@gmail.com>
+Date:   Tue Jun 23 11:03:16 2026 +0530
+
+    Implemented Maximum Average Subarray with O(n) Tc
