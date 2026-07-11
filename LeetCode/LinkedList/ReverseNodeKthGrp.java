@@ -7,43 +7,44 @@ public class ReverseNodeKthGrp {
             return head;
 
         LLini dummy = new LLini();
-        LLini groupPrev = dummy;
-        groupPrev.next = head;
-        LLini groupStart = head, groupEnd = head, nextGroup = null;
-        int node_count;
+        dummy.next = head;
 
-        while (groupStart != null) {
-            node_count = 1;
-            while (node_count < k && groupEnd != null) {
-                groupEnd = groupEnd.next;
-                node_count++;
+        LLini prevGrp = dummy, grpStart = head, grpEnd;
+        int i;
+
+        while (grpStart != null) {
+            grpEnd = grpStart;
+
+            for (i = 1; i < k && grpEnd != null; i++) {
+                grpEnd = grpEnd.next;
             }
-            if (groupEnd == null && node_count < k)
+            if (grpEnd == null)
                 break;
 
-            nextGroup = groupEnd.next;
+            LLini nextGrp = grpEnd.next;
 
-            LLini current = groupStart, next_p = current.next, prev = groupEnd.next;
+            LLini current = grpStart, prev = nextGrp, next_p = current.next;
 
-            node_count = 1;
-            while (node_count <= k) {
+            while (current != nextGrp) {
                 current.next = prev;
 
                 prev = current;
                 current = next_p;
-                node_count++;
-                if (current == null) {
+                if (current == null)
                     break;
-                }
                 next_p = current.next;
             }
-            groupStart = nextGroup;
+            prevGrp.next = prev;
+            prevGrp = grpStart;
+            grpStart = nextGrp;
+
         }
         return (dummy.next);
+
     }
 
     public static void main(String[] args) {
-        LLini head = LLini.createList(new int[] { 1, 2, 3, 4, 5 });
+        LLini head = LLini.createList(new int[] { 1, 2, 3, 4, 5, 6 });
         LLini ans = reverse(head, 3);
         LLini.printList(ans);
 
