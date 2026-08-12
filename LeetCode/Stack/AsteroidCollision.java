@@ -5,7 +5,7 @@ import java.util.Deque;
 
 public class AsteroidCollision {
     public static void main(String[] args) {
-        int[] asteroids = { 3, 5, -6, 2, -1, 4 };
+        int[] asteroids = { 10, 2, -5 };
 
         Deque<Integer> stack = new ArrayDeque<>();
         for (int i = 0; i < asteroids.length; i++) {
@@ -20,15 +20,11 @@ public class AsteroidCollision {
                     stack.pop();
                     survived = false;
                     break;
-
                 } else if (current_abs < stack.peek()) {
                     survived = false;
                     break;
-                }
-
-                while (!stack.isEmpty() && current_abs > stack.peek()) {
+                } else {
                     stack.pop();
-
                 }
 
             }
