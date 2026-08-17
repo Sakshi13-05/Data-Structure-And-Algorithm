@@ -41,6 +41,6 @@ public class BinaryTreeSideView {
         root.right = new TreeNode(30);
 
         // Run BFS
-        List<List<Integer>> levels = view(root);
+        List<Integer> levels = view(root);
     }
 }
