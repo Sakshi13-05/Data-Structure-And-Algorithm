@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Queue;
 
 public class BinaryTreeSideView {
-    public static List<List<Integer>> view(TreeNode root) {
+    public static List<Integer> view(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null)
             return result;
