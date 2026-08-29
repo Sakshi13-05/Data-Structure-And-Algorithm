@@ -4,13 +4,13 @@ import java.util.ArrayDeque;
 
 public class NextGreaterElemetIIRev {
     public static void main(String[] args) {
-        int[] nums = { 1, 2, 1 };
+        int[] nums = { 1, 2, 3 };
         int n = nums.length;
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         int[] ans = new int[n];
 
         // fill array
-        for (int i = n; i <= 2 * n - 1; i++) {
+        for (int i = 2 * n - 1; i >= n; i--) {
             int actual_index = i % n;
             while (!stack.isEmpty() && stack.peek() <= nums[actual_index]) {
                 stack.pop();
