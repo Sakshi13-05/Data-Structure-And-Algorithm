@@ -1,5 +1,6 @@
 package Queue;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -9,29 +10,20 @@ public class BFS {
 
     // BFS Level Order Traversal
     public static List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<>();
-        if (root == null)
-            return result;
+        List<List<Integer>> ans=new LinkedList<>();
+        ArrayDeque <Integer> que=new ArrayDeque<>();
+        que.add(root.val);
+        
+        int levelsize=que.size();
+        while(!que.isEmpty()){
+            que.add(temp.left);
+            que.add(temp.right);
 
-        Queue<TreeNode> queue = new LinkedList<>();
-        queue.offer(root);
+            while(levelsize!=0){
 
-        while (!queue.isEmpty()) {
-            int levelSize = queue.size();
-            List<Integer> currentLevel = new ArrayList<>();
-
-            for (int i = 0; i < levelSize; i++) {
-                TreeNode curr = queue.poll();
-                currentLevel.add(curr.val);
-
-                if (curr.left != null)
-                    queue.offer(curr.left);
-                if (curr.right != null)
-                    queue.offer(curr.right);
             }
-            result.add(currentLevel);
         }
-        return result;
+        return ans;
     }
 
     public static void main(String[] args) {
