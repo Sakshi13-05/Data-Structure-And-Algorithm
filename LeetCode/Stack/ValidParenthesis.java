@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 
 public class ValidParenthesis {
     public static void main(String[] args) {
-        String s = "{{}()}";
+        String s = "{{}((())}";
 
         ArrayDeque<Character> stack = new ArrayDeque<>();
 
